@@ -21,7 +21,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     type: {
       control: "select",
-      options: ["primary", "secondary", "tertiary"],
+      options: ["primary", "secondary", "tertiary", "inverse"],
     },
     size: {
       control: "select",
@@ -100,6 +100,20 @@ export const Tertiary: Story = {
   render: (args) => <Button {...mapHtmlTypeToProps(args)} />,
 };
 
+export const Inverse: Story = {
+  args: {
+    children: "Inverse Button",
+    buttonType: "inverse",
+    size: "regular",
+    ifFullWidth: false,
+    iconOnly: false,
+    isLoading: false,
+    disabled: false,
+  },
+
+  render: (args) => <Button {...mapHtmlTypeToProps(args)} />,
+};
+
 export const Small: Story = {
   args: {
     size: "small",
@@ -133,17 +147,7 @@ export const FullWidth: Story = {
     (
       StoryComponent,
       { args } // Pass args to decorator if needed for mapHtmlTypeToProps
-    ) => (
-      <div
-        style={{
-          width: "300px",
-          padding: "10px",
-          border: "1px dashed lightgray",
-        }}
-      >
-        <StoryComponent args={mapHtmlTypeToProps(args)} />
-      </div>
-    ),
+    ) => <StoryComponent args={mapHtmlTypeToProps(args)} />,
   ],
   render: (args) => <Button {...mapHtmlTypeToProps(args)} />, // Still need render here for the Story itself
 };

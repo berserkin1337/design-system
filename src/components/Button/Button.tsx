@@ -19,7 +19,7 @@ import { clsx } from "clsx";
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   Omit<ButtonVariants, "isLoading"> & {
     // Rename to avoid conflict with HTML button type
-    buttonType?: "primary" | "secondary" | "tertiary";
+    buttonType?: "primary" | "secondary" | "tertiary" | "inverse";
     // Other props remain the same
     children?: ReactNode;
     isLoading?: boolean;
@@ -50,23 +50,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const actualDisabled = isLoading || disabled;
-    console.log("Button rendered with props:", {
-      buttonType,
-      size,
-      ifFullWidth,
-      iconOnly,
-      isLoading,
-      disabled,
-    });
-
-    console.trace("Button props:", {
-      buttonType,
-      size,
-      ifFullWidth,
-      iconOnly,
-      isLoading,
-      disabled,
-    });
     // Check if there's meaningful content (not just whitespace or empty fragment)
     const hasVisibleContent = React.Children.toArray(children).some((child) => {
       if (typeof child === "string" && child.trim() === "") return false;

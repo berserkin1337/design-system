@@ -45,10 +45,6 @@ export const buttonRecipe = recipe({
         ":active": {
           backgroundColor: vars.colors.primary200,
         },
-        ":disabled": {
-          backgroundColor: vars.colors.secondary50, // Using a secondary scale for disabled primary
-          color: vars.colors.textDisabled,
-        },
       },
       secondary: {
         backgroundColor: vars.colors.surface0,
@@ -59,13 +55,6 @@ export const buttonRecipe = recipe({
           backgroundColor: vars.colors.surface50, // Light secondary tint
           color: vars.colors.primary200,
         },
-        ":active": {
-          backgroundColor: vars.colors.secondary50,
-        },
-        ":disabled": {
-          backgroundColor: vars.colors.secondary50, // Using a secondary scale for disabled primary
-          color: vars.colors.textDisabled,
-        },
       },
       tertiary: {
         backgroundColor: "transparent",
@@ -75,11 +64,18 @@ export const buttonRecipe = recipe({
         ":hover": {
           color: vars.colors.primary200,
         },
-        ":active": {
-          backgroundColor: vars.colors.secondary50,
+      },
+      inverse: {
+        borderColor: vars.colors.surface0,
+        color: vars.colors.surface0,
+        backgroundColor: vars.colors.surface900,
+        fontSize: vars.fontSize.textBodySecondary,
+        fontWeight: vars.fontWeight.regular,
+        ":hover": {
+          backgroundColor: "#43454B",
         },
-        ":disabled": {
-          color: vars.colors.textSubtlest,
+        ":focus-visible": {
+          outlineOffset: "1px",
         },
       },
     },
@@ -199,12 +195,48 @@ export const buttonRecipe = recipe({
       variants: { isLoading: true, type: "primary" },
       style: {
         backgroundColor: vars.colors.secondary0,
+        color: vars.colors.primary300,
       },
     },
     {
       variants: { isLoading: true, type: "secondary" },
       style: {
         backgroundColor: vars.colors.surface50,
+      },
+    },
+    {
+      variants: { type: "primary", isLoading: false },
+      style: {
+        ":disabled": {
+          backgroundColor: vars.colors.surface100,
+          color: vars.colors.textDisabled,
+        },
+      },
+    },
+    {
+      variants: { type: "secondary", isLoading: false },
+      style: {
+        ":disabled": {
+          backgroundColor: vars.colors.surface100,
+          color: vars.colors.textDisabled,
+        },
+      },
+    },
+    {
+      variants: { type: "tertiary", isLoading: false },
+      style: {
+        ":disabled": {
+          color: vars.colors.textSubtlest,
+        },
+      },
+    },
+    {
+      variants: { type: "inverse", isLoading: false },
+      style: {
+        ":disabled": {
+          color: vars.colors.textDisabled,
+          borderColor: vars.colors.textDisabled,
+        },
       },
     },
   ],
@@ -253,6 +285,7 @@ export const spinnerStyle = style({
   animationDuration: "1s",
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
+  display: "inline-block",
 
   width: "1em", // Scales with button font size
   height: "1em",
@@ -260,20 +293,20 @@ export const spinnerStyle = style({
   borderWidth: "2px", // Or use a token vars.borderWidths.sm
   borderStyle: "solid",
   // Default spinner color (e.g., for primary buttons)
-  borderColor: vars.colors.surface0, // Example: white border
-  borderTopColor: "transparent", // Makes one part of the circle "empty"
+  borderColor: `${vars.colors.surface0} transparent`, // Example: white border
 });
 
 // We might need variants for spinner color based on button type
 export const spinnerColorVariants = styleVariants({
-  primary: { borderColor: vars.colors.surface0, borderTopColor: "transparent" },
+  primary: { borderColor: `${vars.colors.primary200} transparent` },
   secondary: {
-    borderColor: vars.colors.primary50,
-    borderTopColor: "transparent",
+    borderColor: `${vars.colors.surface900} transparent`,
   },
   tertiary: {
-    borderColor: vars.colors.primary50,
-    borderTopColor: "transparent",
+    borderColor: `${vars.colors.surface900} transparent`,
+  },
+  inverse: {
+    borderColor: `${vars.colors.surface0} transparent`,
   },
 });
 
