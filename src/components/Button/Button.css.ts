@@ -3,18 +3,6 @@ import { keyframes, style, styleVariants } from "@vanilla-extract/css"; // Keep 
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import { vars, figmaTextFeatures } from "../../styles/theme.css"; // Import figmaTextFeatures for font features
 
-// Helper function from theme.css.ts or define locally if needed for specific opacity
-const hexToRgba = (hex: string, alpha: number): string => {
-  const hexValue = hex.startsWith("#") ? hex : `#${hex}`;
-  if (hexValue.length !== 7) {
-    return hex;
-  }
-  const r = parseInt(hexValue.slice(1, 3), 16);
-  const g = parseInt(hexValue.slice(3, 5), 16);
-  const b = parseInt(hexValue.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-};
-
 const baseButton = style({
   display: "inline-flex",
   alignItems: "center",

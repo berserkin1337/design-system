@@ -136,6 +136,7 @@ export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
         {React.Children.map(children, (child) =>
           React.isValidElement(child) && !isHeaderRow
             ? React.cloneElement(child, {
+                //@ts-ignore
                 isParentRowFocusedOrActive: isSpecActiveOrFocused,
               })
             : child

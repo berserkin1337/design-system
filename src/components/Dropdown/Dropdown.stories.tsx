@@ -1,15 +1,15 @@
-import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
+import { useState } from "react";
 
 // Assuming Input component is in a sibling directory
-import { Input } from "../Input"; // Adjust path if needed
 import { Button } from "../Button"; // For a generic button trigger
+import { Input } from "../Input"; // Adjust path if needed
 
 import {
   Dropdown,
-  DropdownPanel,
   DropdownItem,
+  DropdownPanel,
   DropdownSeparator,
 } from "./Dropdown";
 // import '../../styles/global.css.ts';

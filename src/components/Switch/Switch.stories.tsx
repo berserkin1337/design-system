@@ -155,7 +155,7 @@ export const FocusInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //@ts-ignore
     const switchControl = await canvas.findByRole("switch");
     await userEvent.tab(); // Tab to the switch
     // Add assertions here for visual regression testing of focus state if possible

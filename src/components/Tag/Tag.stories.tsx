@@ -105,6 +105,7 @@ export const FocusOnRemoveButton: Story = {
     // Wait for the component to render and find the button
     // Adjust selector if needed, e.g., if using a specific data-testid
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //@ts-ignore
     const removeButton = await canvas.findByRole("button", {
       name: /Remove Focus X/i,
     });
