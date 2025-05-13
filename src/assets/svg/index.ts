@@ -1,5 +1,5 @@
 import Logo from "./TesselLogo.svg?react";
-import PlusIcon from "./plus.svg?react";
+import PlusIcon from "./Plus.svg?react";
 import DataFlixIcon from "./Dataflix.svg?react";
 import AppIcon from "./App.svg?react";
 import AvailibilityMachines from "./AvailibilityMachines.svg?react";
