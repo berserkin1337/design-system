@@ -616,7 +616,7 @@ export const AdditionalSettingsSection = () => {
             label="Duration"
             defaultValue="0.5"
             readOnly
-            trailingItem={<ChevronDownIcon />}
+            // trailingItem={<ChevronDownIcon />}
             size="regular"
             className="Input-maintenanceWindow"
           />
