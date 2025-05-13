@@ -113,8 +113,8 @@ export const tableHeaderCellRecipe = recipe({
     isSelectionCell: {
       true: {
         // width: vars.spacing.xxl,
-        paddingLeft: vars.spacing.md,
-        paddingRight: vars.spacing.md,
+        // paddingLeft: vars.spacing.md,
+        // paddingRight: vars.spacing.md,
         textAlign: "center",
       },
       false: {},

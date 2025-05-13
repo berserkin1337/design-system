@@ -44,6 +44,7 @@ export const DefaultUnselected: Story = {
   args: {
     checked: false,
     value: "option1",
+    label: ""
   },
 };
 
@@ -52,6 +53,7 @@ export const DefaultSelected: Story = {
   args: {
     checked: true,
     value: "option1",
+    label: ""
   },
 };
 
@@ -61,6 +63,7 @@ export const Small: Story = {
     size: "small",
     checked: true,
     value: "option_small",
+    label: ""
   },
 };
 
@@ -70,12 +73,13 @@ export const Large: Story = {
     size: "large",
     checked: true,
     value: "option_large",
+    label: ""
   },
 };
 
 export const DisabledUnselected: Story = {
   args: {
-    label: "Disabled Unselected",
+    label: "",
     checked: false,
     disabled: true,
     value: "option_dis_un",
@@ -84,7 +88,7 @@ export const DisabledUnselected: Story = {
 
 export const DisabledSelected: Story = {
   args: {
-    label: "Disabled Selected",
+    label: "",
     checked: true,
     disabled: true,
     value: "option_dis_sel",

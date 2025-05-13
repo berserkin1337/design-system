@@ -28,6 +28,7 @@ import { TagsInput } from "../../components/TagsInput/TagsInput.tsx";
 import { vars } from "../../styles/theme.css.ts";
 import "./MainContent.css";
 import { mainContentContainer } from "./MainContent.css.ts";
+import { Dropdown, DropdownItem } from "../../components/Dropdown/Dropdown";
 const Header = () => {
   return (
     <>
@@ -111,7 +112,13 @@ const CheckIcon = () => (
 );
 /* ───────────────────── Icons ───────────────────── */
 const PlusIcon = () => (
-  <svg viewBox="0 0 20 20" width="1em" height="1em" fill="currentColor">
+  <svg
+    viewBox="0 0 20 20"
+    width="16px"
+    height="16px"
+    fill="currentColor"
+    aria-hidden="true"
+  >
     <path
       fillRule="evenodd"
       d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
@@ -224,7 +231,7 @@ export const ServiceCard: React.FC = () => {
             {/* <a className="ServiceCard-viewLink">View details</a> */}
             <Link href="/">View Details</Link>
           </div>
-          <span className="ServiceCard-priceValue">$99.99</span>
+          <div className="ServiceCard-priceValue">$99.99</div>
         </div>
 
         <Button buttonType="primary" size="large" iconBefore={<PlusIcon />}>
@@ -236,6 +243,33 @@ export const ServiceCard: React.FC = () => {
 };
 const ServiceDetails = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const [selectedVersion, setSelectedVersion] = useState("");
+  const [selectedRelease, setSelectedRelease] = useState("");
+  const [isVersionOpen, setIsVersionOpen] = useState(false);
+
+  const handleReleaseSelect = (version: { value: string; label: string }) => {
+    setSelectedVersion(version.label);
+  };
+
+  const handleVersionSelect = (version: { value: string; label: string }) => {
+    setSelectedRelease(version.label);
+    setIsVersionOpen(false);
+  };
+
+  const oracleVersions = [
+    { value: "21c", label: "Oracle 21c" },
+    { value: "19c", label: "Oracle 19c" },
+    { value: "18c", label: "Oracle 18c" },
+    { value: "12c", label: "Oracle 12c" },
+  ];
+
+  const versionOptions = [
+    { value: "21.3.0.0.0", label: "21.3.0.0.0" },
+    { value: "19.18.0.0.0", label: "19.18.0.0.0" },
+    { value: "18.17.0.0.0", label: "18.17.0.0.0" },
+    { value: "12.2.0.1.0", label: "12.2.0.1.0" },
+  ];
+
   return (
     <div className="ServiceDetails">
       <div className="ServiceDetails-headingContainer">
@@ -270,7 +304,20 @@ const ServiceDetails = () => {
         </div>
         <div className="ServiceDetailsTagContainer">
           <div className="ServiceDetailsTagContainer-heading">Tags</div>
-          <TagsInput />
+          <TagsInput
+            initialTags={[
+              {
+                id: "1",
+                keyText: "key_input",
+                valueText: "value_input",
+              },
+              {
+                id: "2",
+                keyText: "key2",
+                valueText: "value2",
+              },
+            ]}
+          />
         </div>
       </div>
       <div className="EngineConfigurationContainer">
@@ -298,12 +345,48 @@ const ServiceDetails = () => {
             }}
           >
             <div className="InputHeading">Software Release</div>
-            <Input
-              // placeholder="Oracle 21c"
-              size="regular"
-              wrapperClassName="EngineConfigurationContainer-input"
-              trailingItem={<ChevronDownIcon />}
-            />
+            <Dropdown
+              trigger={(props) => (
+                <div style={{ position: "relative", width: "100%" }}>
+                  <Input
+                    size="regular"
+                    wrapperClassName="EngineConfigurationContainer-input"
+                    trailingItem={
+                      <div
+                        onClick={props.onClick}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <ChevronDownIcon />
+                      </div>
+                    }
+                    value={selectedVersion}
+                    onChange={(e) => setSelectedVersion(e.target.value)}
+                    onClick={props.onClick}
+                    aria-expanded={props["aria-expanded"]}
+                    aria-haspopup={props["aria-haspopup"]}
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+              )}
+              panelStyle={{
+                minWidth: "360px",
+                position: "absolute",
+                left: "16px",
+                top: "calc(100% - 125px)",
+              }}
+            >
+              {oracleVersions.map((version) => (
+                <DropdownItem
+                  key={version.value}
+                  value={version.value}
+                  onSelect={() => {
+                    handleReleaseSelect(version);
+                  }}
+                >
+                  {version.label}
+                </DropdownItem>
+              ))}
+            </Dropdown>
           </div>
           <div
             style={{
@@ -314,11 +397,48 @@ const ServiceDetails = () => {
             }}
           >
             <div className="InputHeading">Version</div>
-            <Input
-              size="regular"
-              wrapperClassName="EngineConfigurationContainer-input"
-              trailingItem={<ChevronDownIcon />}
-            />
+            <Dropdown
+              initialOpen={isVersionOpen}
+              trigger={(props) => (
+                <div style={{ position: "relative", width: "100%" }}>
+                  <Input
+                    size="regular"
+                    wrapperClassName="EngineConfigurationContainer-input"
+                    trailingItem={
+                      <div
+                        onClick={props.onClick}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <ChevronDownIcon />
+                      </div>
+                    }
+                    value={selectedRelease}
+                    onChange={(e) => setSelectedRelease(e.target.value)}
+                    onClick={props.onClick}
+                    aria-expanded={props["aria-expanded"]}
+                    aria-haspopup={props["aria-haspopup"]}
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+              )}
+              panelStyle={{
+                minWidth: "360px",
+                position: "absolute",
+                left: "calc(100% - 420px)",
+                top: "calc(100% - 125px)",
+              }}
+              onOpenChange={setIsVersionOpen}
+            >
+              {versionOptions.map((version) => (
+                <DropdownItem
+                  key={version.value}
+                  value={version.value}
+                  onSelect={() => handleVersionSelect(version)}
+                >
+                  {version.label}
+                </DropdownItem>
+              ))}
+            </Dropdown>
           </div>
         </div>
       </div>
@@ -353,20 +473,34 @@ export const MainContent = () => {
   );
 };
 const CalendarIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+  >
     <path
-      fillRule="evenodd"
-      d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-      clipRule="evenodd"
+      d="M13 2H11V1H10V2H6V1H5V2H3C2.45 2 2 2.45 2 3V13C2 13.55 2.45 14 3 14H13C13.55 14 14 13.55 14 13V3C14 2.45 13.55 2 13 2ZM13 13H3V6H13V13ZM13 5H3V3H5V4H6V3H10V4H11V3H13V5Z"
+      fill="#1A2031"
     />
   </svg>
 );
 const TimeIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+  >
     <path
-      fillRule="evenodd"
-      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.415L11 9.586V5z"
-      clipRule="evenodd"
+      d="M8 15C6.61553 15 5.26216 14.5895 4.11101 13.8203C2.95987 13.0511 2.06266 11.9579 1.53285 10.6788C1.00303 9.3997 0.86441 7.99224 1.13451 6.63437C1.4046 5.2765 2.07129 4.02922 3.05026 3.05026C4.02922 2.07129 5.2765 1.4046 6.63437 1.13451C7.99224 0.86441 9.3997 1.00303 10.6788 1.53285C11.9579 2.06266 13.0511 2.95987 13.8203 4.11101C14.5895 5.26216 15 6.61553 15 8C15 9.85652 14.2625 11.637 12.9497 12.9497C11.637 14.2625 9.85652 15 8 15ZM8 2C6.81332 2 5.65328 2.3519 4.66658 3.01119C3.67989 3.67047 2.91085 4.60755 2.45673 5.7039C2.0026 6.80026 1.88378 8.00666 2.11529 9.17054C2.3468 10.3344 2.91825 11.4035 3.75736 12.2426C4.59648 13.0818 5.66558 13.6532 6.82946 13.8847C7.99335 14.1162 9.19975 13.9974 10.2961 13.5433C11.3925 13.0892 12.3295 12.3201 12.9888 11.3334C13.6481 10.3467 14 9.18669 14 8C14 6.4087 13.3679 4.88258 12.2426 3.75736C11.1174 2.63214 9.5913 2 8 2Z"
+      fill="#1A2031"
+    />
+    <path
+      d="M10.295 11L7.5 8.205V3.5H8.5V7.79L11 10.295L10.295 11Z"
+      fill="#1A2031"
     />
   </svg>
 );
@@ -427,9 +561,10 @@ export const AdditionalSettingsSection = () => {
       <div className="SettingsBlock">
         <h4 className="BlockWindow">Maintenance Window</h4>
         <p className="BlockDesc2">Describing what maintenance window is</p>
-
+      </div>
+      <div className="SettingsBlock SettingsBlock-maintenanceWindow">
         <div className="FieldGroup">
-          {/* <span className="FieldLabel">Window Preference</span> */}
+          <span className="FieldLabel">Window Preference</span>
           <div className="RadioGroup">
             <Radio
               name="windowPreference"
@@ -459,6 +594,7 @@ export const AdditionalSettingsSection = () => {
               readOnly // Assuming this acts like a select trigger
               trailingItem={<CalendarIcon />}
               size="regular" // Or your default input size
+              className="Input-maintenanceWindow"
             />
           </div>
           <div className="FieldWrapper">
@@ -469,6 +605,7 @@ export const AdditionalSettingsSection = () => {
               readOnly
               trailingItem={<TimeIcon />}
               size="regular"
+              className="Input-maintenanceWindow"
             />
           </div>
         </div>
@@ -481,6 +618,7 @@ export const AdditionalSettingsSection = () => {
             readOnly
             trailingItem={<ChevronDownIcon />}
             size="regular"
+            className="Input-maintenanceWindow"
           />
         </div>
 
@@ -501,7 +639,13 @@ export const AdditionalSettingsSection = () => {
           database has been created, you can further define the data
           availability and access policies from the Availability Machine app.
         </p>
-
+      </div>
+      <div
+        className="SettingsBlock"
+        style={{
+          width: "100%",
+        }}
+      >
         <div className="HorizontalFieldGroup">
           <div className="FieldWrapper">
             <Input
@@ -509,6 +653,7 @@ export const AdditionalSettingsSection = () => {
               label="SLA"
               defaultValue="Dev-QA-SLA"
               size="regular"
+              className="Input-availabilityMachine"
             />
           </div>
           <div className="FieldWrapper">
@@ -519,6 +664,7 @@ export const AdditionalSettingsSection = () => {
               readOnly
               trailingItem={<TimeIcon />}
               size="regular"
+              className="Input-availabilityMachine"
             />
           </div>
         </div>
@@ -530,18 +676,33 @@ export const AdditionalSettingsSection = () => {
                 <TableHeaderCell isSelectionCell size="compact" align="left">
                   <Checkbox
                     aria-label="Select all table items"
-                    size="small"
+                    size="medium"
                     className="SettingsTable-checkbox"
                   />
                 </TableHeaderCell>
-                <TableHeaderCell size="compact" isSortable align="left">
-                  Header
+                <TableHeaderCell
+                  size="compact"
+                  isSortable
+                  align="left"
+                  isSelectionCell={false}
+                >
+                  <span className="SettingsTable-headerText">Header</span>
                 </TableHeaderCell>
-                <TableHeaderCell size="compact" isSortable align="left">
-                  Header
+                <TableHeaderCell
+                  size="compact"
+                  isSortable
+                  align="left"
+                  isSelectionCell={false}
+                >
+                  <span className="SettingsTable-headerText">Header</span>
                 </TableHeaderCell>
-                <TableHeaderCell size="compact" align="right" isSortable>
-                  Header
+                <TableHeaderCell
+                  size="compact"
+                  align="right"
+                  isSortable
+                  isSelectionCell={false}
+                >
+                  <span className="SettingsTable-headerText">Header</span>
                 </TableHeaderCell>
               </TableRow>
             </TableHeader>
@@ -555,7 +716,7 @@ export const AdditionalSettingsSection = () => {
                   <TableCell isSelectionCell size="compact">
                     <Checkbox
                       aria-label={`Select ${row.linkText}`}
-                      size="small"
+                      size="medium"
                       className="SettingsTable-checkbox"
                     />
                   </TableCell>
@@ -572,7 +733,9 @@ export const AdditionalSettingsSection = () => {
                       buttonType="tertiary"
                       size="small"
                     >
-                      Delete
+                      <span className="SettingsTable-deleteButtonText">
+                        Delete
+                      </span>
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -583,13 +746,22 @@ export const AdditionalSettingsSection = () => {
       </div>
 
       <div className="AlertMessage">
-        <span className="AlertMessage-icon">
-          <InfoIcon />
-        </span>
-        <span className="AlertMessage-text">
-          Projecting an estimate total count of 71 snapshots with the above
-          configuration.
-        </span>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            flex: "1 0 0",
+          }}
+        >
+          <span className="AlertMessage-icon">
+            <InfoIcon />
+          </span>
+          <span className="AlertMessage-text">
+            Projecting an estimate total count of 71 snapshots with the above
+            configuration.
+          </span>
+        </div>
         <button className="AlertMessage-closeButton" aria-label="Dismiss alert">
           <CloseIcon />
         </button>

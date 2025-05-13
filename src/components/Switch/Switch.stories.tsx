@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn, userEvent, within } from "@storybook/test";
 import { useState } from "react";
 
-import { Switch, type SwitchProps } from "./Switch";
+import { Switch } from "./Switch";
+import { Button } from "../Button";
 
 const meta: Meta<typeof Switch> = {
   title: "Components/Switch",
@@ -118,30 +119,33 @@ export const DisabledSmallOn: Story = {
 export const ControlledSwitch: Story = {
   name: "Controlled State",
   render: (args) => {
-    const [isChecked, setIsChecked] = useState(args.isChecked ?? false);
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "10px",
-        }}
-      >
-        <Switch
-          {...args}
-          isChecked={isChecked}
-          onChange={(checked) => {
-            setIsChecked(checked);
-            args.onChange?.(checked); // Call the Storybook action
+    const ControlledSwitchComponent = () => {
+      const [isChecked, setIsChecked] = useState(args.isChecked ?? false);
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "10px",
           }}
-        />
-        <button onClick={() => setIsChecked(!isChecked)}>
-          Toggle Externally
-        </button>
-        <p>Current state: {isChecked ? "On" : "Off"}</p>
-      </div>
-    );
+        >
+          <Switch
+            {...args}
+            isChecked={isChecked}
+            onChange={(checked) => {
+              setIsChecked(checked);
+              args.onChange?.(checked); // Call the Storybook action
+            }}
+          />
+          <Button onClick={() => setIsChecked(!isChecked)}>
+            Toggle Externally
+          </Button>
+          <p>Current state: {isChecked ? "On" : "Off"}</p>
+        </div>
+      );
+    };
+    return <ControlledSwitchComponent />;
   },
   args: {
     isChecked: false, // Initial controlled state
@@ -155,6 +159,7 @@ export const FocusInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
     //@ts-ignore
     const switchControl = await canvas.findByRole("switch");
     await userEvent.tab(); // Tab to the switch
@@ -163,48 +168,3 @@ export const FocusInteraction: Story = {
 };
 
 // Matrix for visual testing
-export const AllStatesMatrix: Story = {
-  name: "Matrix - Visual Test",
-  render: (args) => {
-    const sizes: Array<SwitchProps["size"]> = ["medium", "small"];
-    const checkedStates = [false, true];
-    const disabledStates = [false, true];
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Size</th>
-            <th>Checked</th>
-            <th>Disabled</th>
-            <th>Switch</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sizes.map((size) =>
-            checkedStates.map((isChecked) =>
-              disabledStates.map((isDisabled) => (
-                <tr key={`${size}-${isChecked}-${isDisabled}`}>
-                  <td>{size}</td>
-                  <td>{isChecked ? "On" : "Off"}</td>
-                  <td>{isDisabled ? "Yes" : "No"}</td>
-                  <td>
-                    <Switch
-                      {...args}
-                      size={size}
-                      defaultChecked={isChecked} // Use defaultChecked for matrix simplicity
-                      disabled={isDisabled}
-                      aria-label={`Switch ${size} ${isChecked ? "On" : "Off"} ${
-                        isDisabled ? "Disabled" : ""
-                      }`}
-                    />
-                  </td>
-                </tr>
-              ))
-            )
-          )}
-        </tbody>
-      </table>
-    );
-  },
-};

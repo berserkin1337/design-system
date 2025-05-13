@@ -57,3 +57,7 @@ export const tagKeyInput = style({
 export const tagValueInput = style({
   // Custom styles for the value <Input>
 });
+
+export const tagClass = style({
+  borderRadius: "4px",
+});

@@ -47,7 +47,7 @@ export const iconButtonRecipe = recipe({
       },
       subtle: {
         color: vars.colors.surface50, // Lighter icon for subtle
-        backgroundColor: vars.colors.primary50, // Using primary50 for base blue
+        // backgroundColor: vars.colors.primary50, // Using primary50 for base blue
         ":hover": {
           color: vars.colors.textInverse, // Slightly darker icon on hover
           backgroundColor: vars.colors.primary100, // Darker blue on hover

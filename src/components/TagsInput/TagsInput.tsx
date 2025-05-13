@@ -7,6 +7,7 @@ import {
   displayedTagsArea,
   inputRow,
   keyInputWrapper,
+  tagClass,
   tagsInputWrapper,
   valueInputWrapper,
 } from "./TagsInput.css";
@@ -124,6 +125,7 @@ export const TagsInput: React.FC<TagsInputProps> = ({
               onRemove={disabled ? undefined : () => removeTag(tag.id)}
               // If Tag component needs disabled prop for styling remove X differently
               // disabled={disabled}
+              className={tagClass}
             >
               {tag.keyText} : {tag.valueText}
             </Tag>

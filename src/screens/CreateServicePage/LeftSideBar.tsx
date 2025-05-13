@@ -42,7 +42,18 @@ const MenuItem = ({
       gap: "10px",
       alignSelf: "stretch",
       width: "100%",
+      borderRadius: vars.radii.sm,
+      cursor: "pointer",
+      transition: "all 0.2s ease-in-out",
       ...sx,
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.backgroundColor = vars.colors.surface100;
+      e.currentTarget.style.color = vars.colors.primary200;
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.backgroundColor = "transparent";
+      e.currentTarget.style.color = sx.color || vars.colors.textSubtler;
     }}
   >
     {typeof Icon === "string" ? Icon : <Icon />}
@@ -165,6 +176,7 @@ export const LeftSideBar = () => {
                 fontSize: vars.fontSize.headingSmBodyPrimary,
                 fontWeight: vars.fontWeight.regular,
                 lineHeight: vars.lineHeight.fontLhRegular,
+                letterSpacing: "0px",
                 color: vars.colors.textSubtler,
                 ...(path.selected && {
                   color: vars.colors.primary200,

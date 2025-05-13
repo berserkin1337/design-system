@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
 import { IconButton } from "./IconButton";
+import { vars } from "../../styles/theme.css";
 // import '../../styles/global.css.ts'; // If needed
 
 // Example X Icon (replace with your actual icon component or SVG)
@@ -88,6 +89,22 @@ export const SubtleEmphasis: Story = {
     emphasis: "subtle",
     "aria-label": "Subtle Action",
   },
+  render: (args) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: vars.colors.primary200,
+          height: "40px",
+          width: "40px",
+        }}
+      >
+        <IconButton {...args} />
+      </div>
+    );
+  },
 };
 
 // --- Size Stories ---
@@ -121,60 +138,52 @@ export const Disabled: Story = {
 };
 
 // Helper to render all variants for easy visual comparison
-const AllVariantsTemplate: Story = {
-  render: (args) => {
-    const emphases = ["intense", "subtle"] as const;
-    const sizes = ["12px", "16px", "20px"] as const;
-    const states = [
-      { name: "Default", props: {} },
-      // Note: Hover, Focus, Active states are best tested interactively in Storybook.
-      // We can show the disabled state though.
-      { name: "Disabled", props: { disabled: true } },
-    ];
+// const AllVariantsTemplate: Story = {
+//   render: (args) => {
+//     const emphases = ["intense", "subtle"] as const;
+//     const sizes = ["12px", "16px", "20px"] as const;
+//     const states = [
+//       { name: "Default", props: {} },
+//       // Note: Hover, Focus, Active states are best tested interactively in Storybook.
+//       // We can show the disabled state though.
+//       { name: "Disabled", props: { disabled: true } },
+//     ];
 
-    return (
-      <div
-        style={{
-          display: "grid",
-          gap: "20px",
-          gridTemplateColumns: `repeat(${
-            states.length * emphases.length
-          }, auto)`,
-        }}
-      >
-        {sizes.map((size) =>
-          emphases.map((emphasis) =>
-            states.map((state) => (
-              <div
-                key={`${size}-${emphasis}-${state.name}`}
-                style={{ textAlign: "center" }}
-              >
-                <IconButton
-                  {...args}
-                  icon={args.icon || <CloseIcon />}
-                  emphasis={emphasis}
-                  size={size}
-                  {...state.props}
-                  aria-label={`${emphasis} ${size} ${state.name}`}
-                />
-                <p
-                  style={{ fontSize: "10px", marginTop: "4px", color: "#666" }}
-                >
-                  {size} / {emphasis} / {state.name}
-                </p>
-              </div>
-            ))
-          )
-        )}
-      </div>
-    );
-  },
-};
-
-export const VisualTestMatrix: Story = {
-  ...AllVariantsTemplate,
-  name: "Visual Test Matrix (Default & Disabled)",
-  args: {
-    // Base args for the matrix, individual props are overridden in render
-  },
-};
+//     return (
+//       <div
+//         style={{
+//           display: "grid",
+//           gap: "20px",
+//           gridTemplateColumns: `repeat(${
+//             states.length * emphases.length
+//           }, auto)`,
+//         }}
+//       >
+//         {sizes.map((size) =>
+//           emphases.map((emphasis) =>
+//             states.map((state) => (
+//               <div
+//                 key={`${size}-${emphasis}-${state.name}`}
+//                 style={{ textAlign: "center" }}
+//               >
+//                 <IconButton
+//                   {...args}
+//                   icon={args.icon || <CloseIcon />}
+//                   emphasis={emphasis}
+//                   size={size}
+//                   {...state.props}
+//                   aria-label={`${emphasis} ${size} ${state.name}`}
+//                 />
+//                 <p
+//                   style={{ fontSize: "10px", marginTop: "4px", color: "#666" }}
+//                 >
+//                   {size} / {emphasis} / {state.name}
+//                 </p>
+//               </div>
+//             ))
+//           )
+//         )}
+//       </div>
+//     );
+//   },
+// };

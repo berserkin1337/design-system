@@ -113,7 +113,7 @@ export const trackRecipe = recipe({
     isDisabled: {
       // To handle specific disabled track colors if opacity isn't enough
       true: {
-        backgroundColor: vars.colors.surface100, // Very light grey for disabled track
+        backgroundColor: vars.colors.textDisabled, // Very light grey for disabled track
       },
       false: {},
     },
@@ -154,14 +154,14 @@ export const thumbRecipe = recipe({
         // Medium: 36 - 16 - 2 = 18px
       },
       false: {
-        backgroundColor: vars.colors.surface400, // Grey when off
+        backgroundColor: vars.colors.surface0, // Grey when off
         // transform is already set by size for 'off' state
       },
     },
     isDisabled: {
       // To handle specific disabled thumb colors
       true: {
-        backgroundColor: vars.colors.surface300, // Slightly darker grey for disabled thumb
+        backgroundColor: vars.colors.surface0, // Slightly darker grey for disabled thumb
         boxShadow: "none",
       },
       false: {},

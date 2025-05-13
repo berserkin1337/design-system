@@ -45,6 +45,10 @@ export const buttonRecipe = recipe({
         ":active": {
           backgroundColor: vars.colors.primary200,
         },
+        ":disabled": {
+          backgroundColor: vars.colors.surface100, // Using a secondary scale for disabled primary
+          color: vars.colors.textDisabled,
+        },
       },
       secondary: {
         backgroundColor: vars.colors.surface0,
@@ -55,6 +59,10 @@ export const buttonRecipe = recipe({
           backgroundColor: vars.colors.surface50, // Light secondary tint
           color: vars.colors.primary200,
         },
+        ":disabled": {
+          backgroundColor: vars.colors.surface100, // Using a secondary scale for disabled primary
+          color: vars.colors.textDisabled,
+        },
       },
       tertiary: {
         backgroundColor: "transparent",
@@ -63,6 +71,9 @@ export const buttonRecipe = recipe({
         fontSize: vars.fontSize.textBodySecondary,
         ":hover": {
           color: vars.colors.primary200,
+        },
+        ":disabled": {
+          color: vars.colors.textSubtlest,
         },
       },
       inverse: {
@@ -76,6 +87,10 @@ export const buttonRecipe = recipe({
         },
         ":focus-visible": {
           outlineOffset: "1px",
+        },
+        ":disabled": {
+          color: vars.colors.textDisabled,
+          borderColor: vars.colors.textDisabled,
         },
       },
     },
@@ -195,48 +210,12 @@ export const buttonRecipe = recipe({
       variants: { isLoading: true, type: "primary" },
       style: {
         backgroundColor: vars.colors.secondary0,
-        color: vars.colors.primary300,
       },
     },
     {
       variants: { isLoading: true, type: "secondary" },
       style: {
         backgroundColor: vars.colors.surface50,
-      },
-    },
-    {
-      variants: { type: "primary", isLoading: false },
-      style: {
-        ":disabled": {
-          backgroundColor: vars.colors.surface100,
-          color: vars.colors.textDisabled,
-        },
-      },
-    },
-    {
-      variants: { type: "secondary", isLoading: false },
-      style: {
-        ":disabled": {
-          backgroundColor: vars.colors.surface100,
-          color: vars.colors.textDisabled,
-        },
-      },
-    },
-    {
-      variants: { type: "tertiary", isLoading: false },
-      style: {
-        ":disabled": {
-          color: vars.colors.textSubtlest,
-        },
-      },
-    },
-    {
-      variants: { type: "inverse", isLoading: false },
-      style: {
-        ":disabled": {
-          color: vars.colors.textDisabled,
-          borderColor: vars.colors.textDisabled,
-        },
       },
     },
   ],
@@ -298,12 +277,12 @@ export const spinnerStyle = style({
 
 // We might need variants for spinner color based on button type
 export const spinnerColorVariants = styleVariants({
-  primary: { borderColor: `${vars.colors.primary200} transparent` },
+  primary: { borderColor: `${vars.colors.surface0} transparent` },
   secondary: {
-    borderColor: `${vars.colors.surface900} transparent`,
+    borderColor: `${vars.colors.primary50} transparent`,
   },
   tertiary: {
-    borderColor: `${vars.colors.surface900} transparent`,
+    borderColor: `${vars.colors.primary50} transparent`,
   },
   inverse: {
     borderColor: `${vars.colors.surface0} transparent`,

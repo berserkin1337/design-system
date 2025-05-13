@@ -53,8 +53,10 @@
 }
 .MainContentContainer {
   width: calc(100% - 232px);
-  height: 100%;
+  height: 100vh;
   box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
 }
 .HeaderContainer {
   box-sizing: border-box;
@@ -103,19 +105,11 @@
   align-items: flex-start;
   gap: 20px;
   align-self: stretch;
+  position: relative;
+  min-height: calc(100vh - 120px);
+  overflow: hidden;
 }
 
-.ServiceCard {
-  display: flex;
-  padding: 8px 0px;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  border-radius: 8px;
-  background: var(--Color-Surface-surface-0, #fff);
-}
-
-/* ——— Card shell ——— */
 .ServiceCard {
   width: 380px;
   border-radius: 12px;
@@ -125,8 +119,13 @@
   flex-direction: column;
   overflow: hidden;
   font-family: Inter, system-ui, -apple-system, sans-serif;
+  position: sticky;
+  height: fit-content;
+  max-height: calc(100vh - 120px);
+  align-self: flex-start;
 }
 
+/* ——— Card shell ——— */
 .ServiceCard > div {
   width: 100%;
 }
@@ -241,6 +240,11 @@
   font-weight: 550;
   line-height: 24px; /* 120% */
   letter-spacing: -0.2px;
+  /* display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column; */
+  align-self: flex-start;
 }
 .ServiceCard-viewLink {
   font-size: 14px;
@@ -275,12 +279,15 @@
 }
 
 .ServiceContainer-main {
-  display: flex;
-  padding-bottom: 32px;
-  flex-direction: column;
-  align-items: flex-start;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 24px;
+  height: calc(100vh - 120px);
+  position: relative;
   gap: 20px;
-  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fb;
 }
 
 .ServiceDetails {
@@ -345,6 +352,9 @@
   font-weight: var(--Font-Weight-Weight-Regular, 450);
   line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
   letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+textarea {
+  resize: none;
 }
 textarea::placeholder {
   color: var(--color-text-text-50-subtlest, #8b96ae);
@@ -512,6 +522,7 @@ h4 {
   font-weight: 500;
   line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
   letter-spacing: var(--Font-Spacing-font-letter-spacing-dense, -0.1px);
+  margin: 0;
 }
 
 .BlockDescription {
@@ -566,18 +577,29 @@ h4 {
 .AlertMessage {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px; /* vars.spacing.sm */
-  padding: 12px 16px; /* vars.spacing.smmd vars.spacing.md */
+  padding: 12px 12px; /* vars.spacing.smmd vars.spacing.md */
   background-color: #ebf2ff; /* vars.colors.secondary0 */
   border-radius: 6px; /* vars.radii.md */
-  font-size: 13px; /* vars.fontSize.headingSmBodyPrimary */
-  color: #0942b3; /* vars.colors.primary200 */
-  margin-top: 24px; /* vars.spacing.lg */
-  border: 1px solid #c8daff; /* vars.colors.secondary100 */
+  width: 100%;
+  color: var(--Text-color-text-normal, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
 }
 .AlertMessage-icon {
   flex-shrink: 0;
   color: #0942b3; /* Match text color */
+  height: 16px;
+  width: 16px;
+  align-self: center;
 }
 .AlertMessage-text {
   flex-grow: 1;
@@ -684,4 +706,64 @@ h4 {
   font-weight: var(--Font-Weight-Weight-Regular, 450);
   line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
   letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+/* Add this to all the text in the page */
+/*font-feature-settings: 'liga' off, 'clig' off;*/
+* {
+  font-feature-settings: "liga" off, "clig" off;
+}
+
+.FieldLabel {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/form titles */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-form-titles, 12px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 133.333% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+.SettingsBlock-maintenanceWindow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-semi-large, 24px);
+}
+.Input-maintenanceWindow {
+  width: 335px;
+}
+.SettingsTable-headerText {
+  color: var(--Text-color-text-brand, #0942b3);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/form titles */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-form-titles, 12px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 133.333% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+.SettingsTable-deleteButtonText {
+  color: var(--Text-color-text-brand, #0942b3);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/secondary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-dense, -0.1px);
+}
+
+.ServiceDetailsFormDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-small, 4px);
+  align-self: stretch;
 }

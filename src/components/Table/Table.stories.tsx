@@ -1,7 +1,6 @@
 // src/components/Table/Table.stories.tsx
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import { vars } from "../../styles/theme.css";
 
 import {
@@ -14,11 +13,11 @@ import {
   cellMemberAvatar,
   cellMemberName,
   cellStatusIcon as cellStatusIconStyle,
-  type TableRowProps,
 } from "./";
 
 import { Checkbox } from "../Checkbox";
 import { IconButton } from "../IconButton";
+import { CopyIcon, PlusIcon, DeleteIcon } from "../../assets/svg";
 
 // --- Example Icons ---
 const EditIcon = () => (
@@ -27,35 +26,6 @@ const EditIcon = () => (
       fill="currentColor"
       d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"
     />
-  </svg>
-);
-
-const CopyIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24">
-    <path
-      fill="currentColor"
-      d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
-    />
-  </svg>
-);
-
-const DeleteIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24">
-    <path
-      fill="currentColor"
-      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12l1.41 1.41L13.41 14l2.12 2.12l-1.41 1.41L12 15.41l-2.12 2.12l-1.41-1.41L10.59 14l-2.12-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"
-    />
-  </svg>
-);
-
-const PlusIcon = () => (
-  <svg
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    style={{ verticalAlign: "middle" }}
-  >
-    <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
   </svg>
 );
 
@@ -261,19 +231,19 @@ const columnsConfig: ColumnDef[] = [
           icon={<CopyIcon />}
           aria-label="Copy"
           size="12px"
-          emphasis="subtle"
+          emphasis="intense"
         />
         <IconButton
           icon={<EditIcon />}
           aria-label="Edit"
           size="12px"
-          emphasis="subtle"
+          emphasis="intense"
         />
         <IconButton
           icon={<DeleteIcon />}
           aria-label="Delete"
           size="12px"
-          emphasis="subtle"
+          emphasis="intense"
         />
       </div>
     ),
@@ -425,123 +395,123 @@ export const CompactTable: Story = {
   },
 };
 
-const RowStatesDemoStory: Story = {
-  name: "Demo: Row Interaction States",
-  render: (args) => {
-    // Use a single row of data for clarity
-    const demoRowData: SampleDataRow = { ...sampleData[0], id: "demo-row" };
-    const statesToDemo: Array<Partial<TableRowProps> & { name: string }> = [
-      {
-        name: "Default (Non-Selected)",
-        isSelected: false,
-        isSpecActiveOrFocused: false,
-      },
-      {
-        name: "Focus (Non-Selected)",
-        isSelected: false,
-        isSpecActiveOrFocused: true,
-      },
-      {
-        name: "Active (Non-Selected)",
-        isSelected: false,
-        isSpecActiveOrFocused: true,
-      }, // Background from compound variant
-      {
-        name: "Selected - Default",
-        isSelected: true,
-        isSpecActiveOrFocused: false,
-      },
-      {
-        name: "Selected - Focus",
-        isSelected: true,
-        isSpecActiveOrFocused: true,
-      }, // BG from compound, cell border from isSpecActiveOrFocused
-      {
-        name: "Selected - Active",
-        isSelected: true,
-        isSpecActiveOrFocused: true,
-      }, // BG from compound, cell border from isSpecActiveOrFocused
-    ];
+// const RowStatesDemoStory: Story = {
+//   name: "Demo: Row Interaction States",
+//   render: (args) => {
+//     // Use a single row of data for clarity
+//     const demoRowData: SampleDataRow = { ...sampleData[0], id: "demo-row" };
+//     const statesToDemo: Array<Partial<TableRowProps> & { name: string }> = [
+//       {
+//         name: "Default (Non-Selected)",
+//         isSelected: false,
+//         isSpecActiveOrFocused: false,
+//       },
+//       {
+//         name: "Focus (Non-Selected)",
+//         isSelected: false,
+//         isSpecActiveOrFocused: true,
+//       },
+//       {
+//         name: "Active (Non-Selected)",
+//         isSelected: false,
+//         isSpecActiveOrFocused: true,
+//       }, // Background from compound variant
+//       {
+//         name: "Selected - Default",
+//         isSelected: true,
+//         isSpecActiveOrFocused: false,
+//       },
+//       {
+//         name: "Selected - Focus",
+//         isSelected: true,
+//         isSpecActiveOrFocused: true,
+//       }, // BG from compound, cell border from isSpecActiveOrFocused
+//       {
+//         name: "Selected - Active",
+//         isSelected: true,
+//         isSpecActiveOrFocused: true,
+//       }, // BG from compound, cell border from isSpecActiveOrFocused
+//     ];
 
-    return (
-      <div
-        style={{
-          padding: "20px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <Table>
-          <TableHeader>
-            <TableRow isHeaderRow>
-              {columnsConfig.map((col) => (
-                <TableHeaderCell
-                  key={col.id}
-                  size={args.cellSize}
-                  align={col.headerAlign || col.align || "left"}
-                  isSelectionCell={col.isSelectionCell}
-                >
-                  {typeof col.Header === "function" ? (
-                    <col.Header onSelectAll={fn()} areAllSelected={false} />
-                  ) : (
-                    col.Header
-                  )}
-                </TableHeaderCell>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {statesToDemo.map((stateConfig) => (
-              <React.Fragment key={stateConfig.name}>
-                <TableRow isHeaderRow={false}>
-                  <TableCell
-                    colSpan={columnsConfig.length}
-                    style={{
-                      textAlign: "center",
-                      fontWeight: "bold",
-                      backgroundColor: vars.colors.surface50,
-                      borderBottom: `1px solid ${vars.colors.surface200}`,
-                    }}
-                  >
-                    {stateConfig.name}
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  isSelected={stateConfig.isSelected}
-                  isSpecActiveOrFocused={stateConfig.isSpecActiveOrFocused}
-                >
-                  {columnsConfig.map((col) => (
-                    <TableCell
-                      key={col.id}
-                      size={args.cellSize}
-                      align={col.align || "left"}
-                      isSelectionCell={col.isSelectionCell}
-                    >
-                      <col.Cell
-                        row={{
-                          original: {
-                            ...demoRowData,
-                            selected: !!stateConfig.isSelected,
-                          },
-                        }}
-                        onSelectRow={fn()}
-                      />
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </React.Fragment>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    );
-  },
-  args: {
-    cellSize: "expanded",
-  },
-  argTypes: {
-    cellSize: { control: "select", options: ["compact", "expanded"] },
-  },
-};
-export { RowStatesDemoStory as RowStatesDemo };
+//     return (
+//       <div
+//         style={{
+//           padding: "20px",
+//           display: "flex",
+//           flexDirection: "column",
+//           gap: "10px",
+//         }}
+//       >
+//         <Table>
+//           <TableHeader>
+//             <TableRow isHeaderRow>
+//               {columnsConfig.map((col) => (
+//                 <TableHeaderCell
+//                   key={col.id}
+//                   size={args.cellSize}
+//                   align={col.headerAlign || col.align || "left"}
+//                   isSelectionCell={col.isSelectionCell}
+//                 >
+//                   {typeof col.Header === "function" ? (
+//                     <col.Header onSelectAll={fn()} areAllSelected={false} />
+//                   ) : (
+//                     col.Header
+//                   )}
+//                 </TableHeaderCell>
+//               ))}
+//             </TableRow>
+//           </TableHeader>
+//           <TableBody>
+//             {statesToDemo.map((stateConfig) => (
+//               <React.Fragment key={stateConfig.name}>
+//                 <TableRow isHeaderRow={false}>
+//                   <TableCell
+//                     colSpan={columnsConfig.length}
+//                     style={{
+//                       textAlign: "center",
+//                       fontWeight: "bold",
+//                       backgroundColor: vars.colors.surface50,
+//                       borderBottom: `1px solid ${vars.colors.surface200}`,
+//                     }}
+//                   >
+//                     {stateConfig.name}
+//                   </TableCell>
+//                 </TableRow>
+//                 <TableRow
+//                   isSelected={stateConfig.isSelected}
+//                   isSpecActiveOrFocused={stateConfig.isSpecActiveOrFocused}
+//                 >
+//                   {columnsConfig.map((col) => (
+//                     <TableCell
+//                       key={col.id}
+//                       size={args.cellSize}
+//                       align={col.align || "left"}
+//                       isSelectionCell={col.isSelectionCell}
+//                     >
+//                       <col.Cell
+//                         row={{
+//                           original: {
+//                             ...demoRowData,
+//                             selected: !!stateConfig.isSelected,
+//                           },
+//                         }}
+//                         onSelectRow={fn()}
+//                       />
+//                     </TableCell>
+//                   ))}
+//                 </TableRow>
+//               </React.Fragment>
+//             ))}
+//           </TableBody>
+//         </Table>
+//       </div>
+//     );
+//   },
+//   args: {
+//     cellSize: "expanded",
+//   },
+//   argTypes: {
+//     cellSize: { control: "select", options: ["compact", "expanded"] },
+//   },
+// };
+// export { RowStatesDemoStory as RowStatesDemo };

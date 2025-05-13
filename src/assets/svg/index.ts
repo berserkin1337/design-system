@@ -24,7 +24,9 @@ import HelpIcon from "./Help.svg?react";
 import BellIcon from "./Bell.svg?react";
 import AvatarIcon from "./Avatar.svg?react";
 import CodeIcon from "./Bracket.svg?react";
-
+import CopyIcon from "./Copy.svg?react";
+import DeleteIcon from "./trash-can.svg?react";
+import EditIcon from "./edit.svg?react";
 export {
   ChevronLeftIcon,
   Logo,
@@ -52,4 +54,7 @@ export {
   BellIcon,
   AvatarIcon,
   CodeIcon,
+  CopyIcon,
+  DeleteIcon,
+  EditIcon,
 };

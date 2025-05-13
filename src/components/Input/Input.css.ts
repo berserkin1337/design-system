@@ -47,11 +47,6 @@ const baseInputStyle = style({
   ":focus-visible": {
     outline: "2px solid #D1DFFF",
   },
-  selectors: {
-    "&:focus-within": {
-      border: `1px solid ${vars.colors.primary200}`,
-    },
-  },
 });
 
 export const inputElementStyle = style({
@@ -115,7 +110,14 @@ export const inputRecipe = recipe({
       },
     },
     state: {
-      default: {},
+      default: {
+        selectors: {
+          "&:focus-within": {
+            border: `1px solid ${vars.colors.primary200}`,
+            outline: "none",
+          },
+        },
+      },
       error: { borderColor: vars.colors.danger200 },
       warning: { borderColor: vars.colors.warning200 },
       success: { borderColor: vars.colors.success200 },
@@ -123,8 +125,8 @@ export const inputRecipe = recipe({
     },
     isFocused: {
       true: {
-        borderColor: vars.colors.primary100,
-        boxShadow: `0 0 0 2px ${vars.colors.opacityPrimary15}`,
+        // borderColor: vars.colors.primary100,
+        // boxShadow: `0 0 0 2px ${vars.colors.opacityPrimary15}`,
       },
       false: {},
     },
@@ -190,9 +192,6 @@ export const textareaBase = style({
   // Styling the placeholder for this specific textarea style
   "::placeholder": {
     color: vars.colors.textSubtlest,
-    fontSize: vars.fontSize.headingSmBodyPrimary,
-    fontStyle: "normal",
-    fontWeight: vars.fontWeight.regular,
     // You could even use a textStyle from your theme if you have one for placeholders
     // ...textStyles.placeholderText,
   },

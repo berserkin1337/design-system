@@ -1,36 +1,34 @@
-// src/components/Dropdown/Dropdown.tsx
+import { clsx } from "clsx";
 import React, {
-  type HTMLAttributes,
   type ButtonHTMLAttributes,
-  type ReactNode,
   forwardRef,
-  useRef,
+  type HTMLAttributes,
+  type ReactNode,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import {
-  dropdownPanel,
   dropdownItem,
+  dropdownPanel,
+  dropdownSeparator, // Ensure types are imported
   itemIconWrapper,
   itemLabel,
   itemTrailingContent,
-  dropdownSeparator,
 } from "./Dropdown.css";
-import { clsx } from "clsx";
+import { DropdownContext, useDropdown } from "./DropdownContext"; // IMPORT CONTEXT
 
 // --- DropdownPanel ---
 export interface DropdownPanelProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
   children: ReactNode;
-  // Add props for positioning if implementing more advanced logic
-  // e.g., triggerRef, placement, etc.
   className?: string;
-  style?: React.CSSProperties; // For dynamic positioning
+  style?: React.CSSProperties;
 }
 
 export const DropdownPanel = forwardRef<HTMLDivElement, DropdownPanelProps>(
   ({ isOpen, children, className, style: styleProp, ...rest }, ref) => {
-    const panelClasses = dropdownPanel({ isOpen });
+    const panelClasses = dropdownPanel({ isOpen }); // Recipe call
 
     return (
       <div
@@ -38,7 +36,7 @@ export const DropdownPanel = forwardRef<HTMLDivElement, DropdownPanelProps>(
         className={clsx(panelClasses, className)}
         style={styleProp}
         {...rest}
-        role="listbox"
+        role="listbox" // ARIA role for the panel
       >
         {children}
       </div>
@@ -53,12 +51,12 @@ export interface DropdownItemProps
     ButtonHTMLAttributes<HTMLButtonElement>,
     "disabled" | "onSelect"
   > {
-  children: ReactNode; // The main label of the item
+  children: ReactNode;
   leadingIcon?: ReactNode;
   trailingContent?: ReactNode;
   isActive?: boolean;
-  disabled?: boolean; // Consistent with other components
-  value?: string | number; // Value associated with the item
+  disabled?: boolean;
+  value?: string | number;
   onSelect?: (value: string | number | undefined) => void;
 }
 
@@ -73,16 +71,19 @@ export const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
       value,
       onSelect,
       className,
+      onClick: originalOnClick, // Renamed to avoid conflict
       ...rest
     },
     ref
   ) => {
-    const itemClasses = dropdownItem({ isActive, isDisabled: disabled });
+    const itemClasses = dropdownItem({ isActive, isDisabled: disabled }); // Recipe call
+    const { closeDropdown } = useDropdown(); // GET closeDropdown FROM CONTEXT
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (disabled) return;
       onSelect?.(value);
-      rest.onClick?.(e); // Call original onClick if provided
+      originalOnClick?.(e);
+      closeDropdown(); // CLOSE THE DROPDOWN
     };
 
     return (
@@ -94,7 +95,7 @@ export const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
         role="option"
         aria-selected={isActive}
         {...rest}
-        type="button" // Ensure it's a button
+        type="button"
       >
         {leadingIcon && <span className={itemIconWrapper}>{leadingIcon}</span>}
         <span className={itemLabel}>{children}</span>
@@ -107,6 +108,7 @@ export const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
 );
 DropdownItem.displayName = "DropdownItem";
 
+// --- DropdownSeparator ---
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface DropdownSeparatorProps extends HTMLAttributes<HTMLHRElement> {}
 
@@ -118,8 +120,7 @@ export const DropdownSeparator: React.FC<DropdownSeparatorProps> = ({
 };
 DropdownSeparator.displayName = "DropdownSeparator";
 
-// --- Main Dropdown Wrapper (Example of how to use Panel and manage state) ---
-// This is a basic example. A real Dropdown often uses a Context or a headless UI library.
+// --- Main Dropdown Wrapper ---
 export interface DropdownProps {
   trigger: (props: {
     onClick: () => void;
@@ -127,7 +128,7 @@ export interface DropdownProps {
     "aria-expanded": boolean;
     "aria-haspopup": "listbox";
   }) => ReactNode;
-  children: ReactNode; // DropdownItems, DropdownSeparators
+  children: ReactNode;
   panelClassName?: string;
   panelStyle?: React.CSSProperties;
   initialOpen?: boolean;
@@ -143,8 +144,17 @@ export const Dropdown: React.FC<DropdownProps> = ({
   onOpenChange,
 }) => {
   const [isOpen, setIsOpen] = useState(initialOpen);
-  const triggerRef = useRef<HTMLElement>(null); // For positioning
-  const panelRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null); // Initialize with null
+  const panelRef = useRef<HTMLDivElement | null>(null); // Initialize with null
+
+  // Function to explicitly close the dropdown, can be passed via context
+  const closeDropdownInternal = () => {
+    if (isOpen) {
+      // Only change state if it's actually open
+      setIsOpen(false);
+      onOpenChange?.(false);
+    }
+  };
 
   const toggleOpen = () => {
     const newState = !isOpen;
@@ -152,85 +162,94 @@ export const Dropdown: React.FC<DropdownProps> = ({
     onOpenChange?.(newState);
   };
 
-  // Basic click outside to close
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
+        isOpen &&
         panelRef.current &&
         !panelRef.current.contains(event.target as Node) &&
-        triggerRef.current && // Check if triggerRef is current (could be an issue if trigger is complex)
+        triggerRef.current &&
         !triggerRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
-        onOpenChange?.(false);
+        closeDropdownInternal();
       }
     };
 
     if (isOpen) {
+      // Only add listener if dropdown is open
       document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen, onOpenChange]);
+  }, [isOpen, onOpenChange]); // Rerun if isOpen or onOpenChange changes
 
-  // For dynamic positioning based on trigger (very basic example)
-  // A library like Popper.js / Floating UI is recommended for robust positioning
   const [dynamicPanelStyle, setDynamicPanelStyle] =
     useState<React.CSSProperties>({});
   useEffect(() => {
     if (isOpen && triggerRef.current && panelRef.current) {
       const triggerRect = triggerRef.current.getBoundingClientRect();
       setDynamicPanelStyle({
-        top: triggerRect.bottom + window.scrollY, // Position below trigger
+        position: "absolute", // Ensure panel is absolutely positioned for top/left
+        top: triggerRect.bottom + window.scrollY + 2, // +2 for small gap
         left: triggerRect.left + window.scrollX,
-        width: triggerRect.width, // Match trigger width (optional)
-        ...panelStyle, // Merge with any passed style
+        width: triggerRect.width, // Or a minWidth from theme, or dynamic
+        ...panelStyle,
       });
     }
-  }, [isOpen, triggerRef, panelRef, panelStyle]);
+  }, [isOpen, panelStyle]); // Rerun if isOpen or panelStyle changes
 
-  // Pass ref to the trigger element rendered by the callback
   const triggerElement = trigger({
     onClick: toggleOpen,
     isOpen,
     "aria-expanded": isOpen,
     "aria-haspopup": "listbox",
   });
+
   const triggerWithRef = React.isValidElement(triggerElement)
     ? React.cloneElement(triggerElement, {
-        // @ts-ignore
-        ref: (node: HTMLElement) => {
-          // @ts-ignore Assign to our ref
+        // @ts-ignore difficult to type precisely with cloneElement and refs
+        ref: (node: HTMLElement | null) => {
           triggerRef.current = node;
-          // @ts-ignore Assign to original ref if exists
-          const { ref: originalRef } = triggerElement as any;
+          // Handle original ref if triggerElement itself had one
+
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const originalRef = (triggerElement as any).ref;
           if (typeof originalRef === "function") {
             originalRef(node);
-          } else if (originalRef) {
+          } else if (originalRef && typeof originalRef === "object") {
             originalRef.current = node;
           }
         },
       })
     : triggerElement;
 
+  const contextValue = {
+    closeDropdown: closeDropdownInternal,
+    isOpen,
+  };
+
   return (
     <>
       {triggerWithRef}
-      <DropdownPanel
-        ref={panelRef}
-        isOpen={isOpen}
-        className={panelClassName}
-        style={dynamicPanelStyle}
-        // Basic ARIA for a listbox popup
-        aria-labelledby={
-          React.isValidElement(triggerElement)
-            ? (triggerElement as any).props.id
-            : undefined
-        }
-      >
-        {children}
-      </DropdownPanel>
+      <DropdownContext.Provider value={contextValue}>
+        <DropdownPanel
+          ref={panelRef}
+          isOpen={isOpen}
+          className={panelClassName}
+          style={dynamicPanelStyle}
+          aria-labelledby={
+            React.isValidElement(triggerElement) &&
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (triggerElement.props as any).id
+              ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (triggerElement.props as any).id
+              : undefined
+          }
+        >
+          {children}
+        </DropdownPanel>
+      </DropdownContext.Provider>
     </>
   );
 };

@@ -160,19 +160,19 @@ export const InitiallyOpen: Story = {
   },
 };
 
-// Story for just the panel and items for styling in isolation
-export const PanelAndItems: StoryObj<{}> = {
-  name: "Panel & Items (Static)",
-  parameters: { layout: "padded" },
-  render: () => (
-    <div style={{ position: "relative", height: "350px", width: "250px" }}>
-      {" "}
-      {/* Relative container for absolute panel */}
-      <DropdownPanel isOpen={true} style={{ position: "static", marginTop: 0 }}>
-        {" "}
-        {/* Override position for static view */}
-        {sampleItems(fn())}
-      </DropdownPanel>
-    </div>
-  ),
-};
+// // Story for just the panel and items for styling in isolation
+// export const PanelAndItems: StoryObj<{}> = {
+//   name: "Panel & Items (Static)",
+//   parameters: { layout: "padded" },
+//   render: () => (
+//     <div style={{ position: "relative", height: "350px", width: "250px" }}>
+//       {" "}
+//       {/* Relative container for absolute panel */}
+//       <DropdownPanel isOpen={true} style={{ position: "static", marginTop: 0 }}>
+//         {" "}
+//         {/* Override position for static view */}
+//         {sampleItems(fn())}
+//       </DropdownPanel>
+//     </div>
+//   ),
+// };

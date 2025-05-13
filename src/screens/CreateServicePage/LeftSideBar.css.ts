@@ -48,4 +48,5 @@ export const SideBarBottom = style({
   alignSelf: "stretch",
   paddingBottom: "18px",
   color: vars.colors.textSubtler,
+  letterSpacing: "0px",
 });
