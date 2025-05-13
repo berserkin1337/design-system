@@ -236,35 +236,6 @@ export const LeftSideBar = () => {
                 gap: "9px",
               }}
             >
-              <PlusIcon />
-              <span>Invite People</span>
-            </div>
-            <div>
-              <PinIcon />
-            </div>
-          </div>
-        </div>
-
-        <div
-          style={{
-            width: "100%",
-          }}
-        >
-          <div
-            style={{
-              padding: "6px 8px",
-              justifyContent: "space-between",
-              alignItems: "center",
-              display: "flex",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "9px",
-              }}
-            >
               <BookIcon />
               <span>Help & Support</span>
             </div>

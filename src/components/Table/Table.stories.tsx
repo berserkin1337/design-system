@@ -247,7 +247,7 @@ const columnsConfig: ColumnDef[] = [
         />
       </div>
     ),
-    align: "right",
+    align: "left",
   },
 ];
 
