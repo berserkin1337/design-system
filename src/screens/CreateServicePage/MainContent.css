@@ -1,0 +1,687 @@
+.HeaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+}
+
+.HeaderContainer > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.HeaderContainer-top-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-text-50-subtlest, #8b96ae);
+
+  /* Text-body/secondary/secondary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-small, 11px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 145.455% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+.HeaderContainer-top-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-text-200-primary, #1a2031);
+  text-align: center;
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+.HeaderContainer-top {
+  padding: 8px 20px;
+
+  border-bottom: 1px solid var(--Color-Surface-surface-100, #eef1f6);
+  background: #fff;
+}
+.MainContentContainer {
+  width: calc(100% - 232px);
+  height: 100%;
+  box-sizing: border-box;
+}
+.HeaderContainer {
+  box-sizing: border-box;
+}
+
+.HeaderHeading {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Medium, 550);
+  line-height: 22px; /* 146.667% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-dense, -0.1px);
+}
+
+.HeaderContainer-bottom-right {
+  color: #161616;
+  font-feature-settings: "liga" off, "clig" off;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+.HeaderContainer-bottom {
+  padding: 12px 20px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ServiceContainer {
+  padding: 24px 20px 0px 20px;
+  background: #f8f9fb;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
+}
+
+.ServiceCard {
+  display: flex;
+  padding: 8px 0px;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border-radius: 8px;
+  background: var(--Color-Surface-surface-0, #fff);
+}
+
+/* ——— Card shell ——— */
+.ServiceCard {
+  width: 380px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.ServiceCard > div {
+  width: 100%;
+}
+/* ——— TOP grid ——— */
+.ServiceCard-topGrid {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  column-gap: 16px;
+  padding-left: 20px;
+  padding-right: 20px;
+  grid-auto-rows: auto;
+  column-gap: 16px;
+  height: 447px;
+}
+.TopSection:first-of-type {
+  margin-bottom: 24px; /* same value the row-gap had */
+}
+.TopSection {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* step-per column */
+.ServiceCard-stepper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-row: 1 / span 2;
+}
+.ServiceCard-stepIndicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.ServiceCard-stepIndicator--active {
+  background: var(--Color-Primary-primary-200, #0942b3);
+}
+.ServiceCard-stepIndicator--inactive {
+  background: #bbc4d6;
+}
+.ServiceCard-stepLine {
+  flex: 1 0 auto;
+  width: 1px;
+  background: #d1d5db;
+}
+
+/* headings & body copy */
+.ServiceCard-heading {
+  margin: 0;
+  color: var(--Color-Primary-primary-200, #0942b3);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* body/secondary */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 550;
+  line-height: 20px; /* 153.846% */
+}
+.ServiceCard-description {
+  color: var(--color-text-text-100-subtler, #525f7a);
+
+  /* Text-body/secondary/secondary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-small, 11px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 145.455% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+/* ——— Separator ——— */
+.ServiceCard-separator {
+  border: none;
+  height: 1px;
+  background: #e4e6eb;
+  margin: 0;
+}
+
+/* ——— Bottom area ——— */
+.ServiceCard-bottom {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-top: 1px solid var(--Color-Surface-surface-200, #dbe0eb);
+}
+.ServiceCard-priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ServiceCard-priceInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ServiceCard-priceLabel {
+  font-size: 15px;
+  color: #324b6b;
+  font-weight: 500;
+}
+.ServiceCard-priceValue {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/Titles */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 550;
+  line-height: 24px; /* 120% */
+  letter-spacing: -0.2px;
+}
+.ServiceCard-viewLink {
+  font-size: 14px;
+  color: #0d47c2;
+  text-decoration: none;
+}
+.ServiceCard-viewLink:hover {
+  text-decoration: underline;
+}
+
+/* CTA button */
+.ServiceCard-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #003cab;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.ServiceCard-button:hover {
+  background: #002d80;
+}
+.ServiceCard-button svg {
+  fill: currentColor;
+}
+
+.ServiceContainer-main {
+  display: flex;
+  padding-bottom: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1 0 0;
+}
+
+.ServiceDetails {
+  display: flex;
+  padding: var(--Spacing-medium, 16px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-large, 32px);
+  align-self: stretch;
+  border-radius: var(--Spacing-regular, 8px);
+  background: var(--Color-Surface-surface-0, #fff);
+}
+.ServiceDetailsForm-input {
+  width: 360px;
+}
+
+.ServiceDetailsForm-description-input {
+  height: 92px;
+  width: 655px;
+}
+.ServiceDetailsForm-description-input-textarea {
+  height: 100%;
+}
+
+.ServiceDetailsForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-regular, 8px);
+  align-self: stretch;
+}
+.ServiceDetails-heading {
+  margin: 0;
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Medium, 550);
+  line-height: 22px; /* 146.667% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-dense, -0.1px);
+}
+.ServiceDetails-headingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-smallest, 2px);
+  align-self: stretch;
+}
+
+.ServiceDetails-description {
+  color: var(--color-text-text-100-subtler, #525f7a);
+  font-feature-settings: "liga" off, "clig" off;
+  margin: 0px;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+textarea::placeholder {
+  color: var(--color-text-text-50-subtlest, #8b96ae);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+.ServiceDetailsTagContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-regular, 8px);
+}
+.ServiceDetailsFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-semi-large, 24px);
+}
+.ServiceDetailsTagContainer-heading {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/form titles */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-form-titles, 12px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 133.333% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+.EngineConfigurationContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-semi-large, 24px);
+}
+
+.EnginerConfiguration-heading {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Heading/3 */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 650;
+  line-height: 20px; /* 153.846% */
+}
+
+.EngineConfigurationContainer-headingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-smallest, 2px);
+}
+
+.EngineConfigurationContainer-description {
+  color: var(--color-text-text-100-subtler, #525f7a);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+.InputHeading {
+  color: var(--Text-color-text-normal, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/form titles */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-form-titles, 12px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 133.333% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+.EngineConfigurationContainer-input {
+  width: 360px;
+}
+
+.ContainerCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ContainerCheckbox-description {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+/* --- General Section Styles --- */
+.AdditionalSettingsSection {
+  font-family: Inter, system-ui, -apple-system, sans-serif; /* Use your theme's vars.font.body */
+  color: #1a2031; /* vars.colors.textPrimary */
+
+  /* background-color: #f9fafb; /* Optional */
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-large, 32px);
+  align-self: stretch;
+  background: var(--Color-Surface-surface-0, #fff);
+  border-radius: 8px;
+}
+
+.SettingsBlock {
+  /* margin-bottom: 24px; spacing/large */
+}
+.SettingsBlock:last-child {
+  margin-bottom: 0;
+}
+h4 {
+  margin: 0;
+}
+
+.BlockTitle {
+  font-size: 15px; /* Or use a textStyle from theme */
+  font-weight: 550; /* vars.fontWeight.mediumEmphasis */
+  color: #1a2031; /* vars.colors.textPrimary */
+  margin: 0px;
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Medium, 550);
+  line-height: 22px; /* 146.667% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-dense, -0.1px);
+}
+.BlockWindow {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/secondary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-dense, -0.1px);
+}
+
+.BlockDescription {
+  font-size: 13px; /* Or a textStyle from theme */
+  color: #525f7a; /* vars.colors.textSubtler */
+  line-height: 1.5;
+}
+
+.FieldGroup {
+  margin-bottom: 16px;
+}
+.FieldGroup:last-child {
+  margin-bottom: 0;
+}
+
+/* FieldLabel is now part of the Input component's props typically */
+
+.HorizontalFieldGroup {
+  display: flex;
+  gap: 16px; /* vars.spacing.md */
+}
+.HorizontalFieldGroup > .FieldWrapper {
+  /* FieldWrapper might not be needed if Input handles its label well */
+  flex: 1;
+}
+
+/* --- Radio Group Styles --- */
+.RadioGroup {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px; /* Or use a FieldLabel above it */
+}
+/* Radio component itself will have its label and styling */
+
+/* CheckboxOption styling can be done via Checkbox component's label prop */
+.TopCheckboxOption {
+  /* For "Create as a Container Database" */
+  margin-bottom: 24px; /* spacing/large */
+}
+.EnableAutoMinorVersionCheckbox {
+  margin-top: 16px; /* spacing/large */
+}
+
+/* --- Table Styles --- */
+/* The Table component itself will bring most of its styles.
+   This is just for any specific container margins. */
+.SettingsTableContainer {
+  margin-top: 16px; /* spacing/large */
+}
+
+/* --- Alert Message Styles --- */
+.AlertMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* vars.spacing.sm */
+  padding: 12px 16px; /* vars.spacing.smmd vars.spacing.md */
+  background-color: #ebf2ff; /* vars.colors.secondary0 */
+  border-radius: 6px; /* vars.radii.md */
+  font-size: 13px; /* vars.fontSize.headingSmBodyPrimary */
+  color: #0942b3; /* vars.colors.primary200 */
+  margin-top: 24px; /* vars.spacing.lg */
+  border: 1px solid #c8daff; /* vars.colors.secondary100 */
+}
+.AlertMessage-icon {
+  flex-shrink: 0;
+  color: #0942b3; /* Match text color */
+}
+.AlertMessage-text {
+  flex-grow: 1;
+}
+.AlertMessage-closeButton {
+  background: none;
+  border: none;
+  padding: 2px; /* Minimal padding */
+  margin-left: auto;
+  cursor: pointer;
+  color: #0942b3; /* vars.colors.primary200 */
+  line-height: 1; /* Prevent button from being too tall */
+}
+.AlertMessage-closeButton:hover {
+  opacity: 0.7;
+}
+.AlertMessage-closeButton svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+}
+.SettingsTable-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SettingsTable {
+  border: 1px solid var(--Color-Surface-surface-200, #dbe0eb);
+  border-radius: 4px;
+}
+
+.BlockPreference {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* heading/form titles */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-form-titles, 12px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 133.333% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+
+.BlockDesc1 {
+  color: var(--color-text-text-100-subtler, #525f7a);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+  margin: 0;
+}
+.BlockDesc2 {
+  color: var(--color-text-text-50-subtlest, #8b96ae);
+
+  /* Text-body/secondary/secondary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-small, 11px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 145.455% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+  margin: 0;
+}
+
+.BlockDesc3 {
+  color: var(--color-text-text-50-subtlest, #8b96ae);
+
+  /* Text-body/secondary/secondary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-small, 11px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-small, 16px); /* 145.455% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+  margin: 0;
+}
+.radio-label-text {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}
+.checkbox-label-text {
+  color: var(--color-text-text-200-primary, #1a2031);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Text-body/primary/primary */
+  font-family: var(--Font-Family-Family, Inter);
+  font-size: var(--Font-Size-size-regular, 13px);
+  font-style: normal;
+  font-weight: var(--Font-Weight-Weight-Regular, 450);
+  line-height: var(--Font-Line_Height-font-lh-regular, 20px); /* 153.846% */
+  letter-spacing: var(--Font-Spacing-font-letter-spacing-normal, 0px);
+}

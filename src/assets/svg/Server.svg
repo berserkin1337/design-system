@@ -1,0 +1,14 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Computer Database" clip-path="url(#clip0_1_7531)">
+<g id="Group">
+<path id="Vector" d="M7.99995 6.28564C12.1026 6.28564 15.4285 5.00645 15.4285 3.42849C15.4285 1.85054 12.1026 0.57135 7.99995 0.57135C3.89727 0.57135 0.571381 1.85054 0.571381 3.42849C0.571381 5.00645 3.89727 6.28564 7.99995 6.28564Z" stroke="currentColor" stroke-width="0.914286" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M0.57135 3.42844V12.5713C0.57135 14.1484 3.89706 15.4284 7.99992 15.4284C12.1028 15.4284 15.4285 14.1484 15.4285 12.5713V3.42844" stroke="currentColor" stroke-width="0.914286" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M15.4285 7.99991C15.4285 9.57705 12.1028 10.8571 7.99992 10.8571C3.89706 10.8571 0.57135 9.57705 0.57135 7.99991" stroke="currentColor" stroke-width="0.914286" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_1_7531">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
