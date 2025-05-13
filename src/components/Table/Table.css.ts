@@ -8,6 +8,7 @@ export const tableWrapper = style({
   width: "100%",
   borderCollapse: "collapse",
   borderSpacing: 0,
+  tableLayout: "fixed",
 });
 
 // --- Table Row Styles ---
@@ -115,6 +116,7 @@ export const tableHeaderCellRecipe = recipe({
         // width: vars.spacing.xxl,
         // paddingLeft: vars.spacing.md,
         // paddingRight: vars.spacing.md,
+        width: vars.spacing.xl, // ⬅️ real width lives in CSS
         textAlign: "center",
       },
       false: {},
@@ -181,8 +183,9 @@ export const tableCellRecipe = recipe({
     isSelectionCell: {
       true: {
         // width: vars.spacing.xxl,
-        paddingLeft: vars.spacing.md,
-        paddingRight: vars.spacing.md,
+        width: vars.spacing.xl, // ⬅️  same width here
+        // paddingLeft: vars.spacing.md,
+        // paddingRight: vars.spacing.md,
         textAlign: "center",
       },
       false: {},

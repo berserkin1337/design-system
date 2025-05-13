@@ -62,7 +62,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
       <table
         ref={ref}
         className={clsx(tableWrapper, className)}
-        style={{ tableLayout: "auto", width: "100%" }}
+        // style={{ tableLayout: "auto", width: "100%" }}
         {...rest}
       >
         {children}
@@ -73,6 +73,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 Table.displayName = "Table";
 
 // ---------- TableHeader ----------
+
 export interface TableHeaderProps
   extends HTMLAttributes<HTMLTableSectionElement> {}
 export const TableHeader = forwardRef<
@@ -183,9 +184,7 @@ export const TableHeaderCell = forwardRef<
     });
 
     // Hint width only for the selection checkbox; other columns will auto-size
-    const widthHint: React.CSSProperties = isSelectionCell
-      ? { width: vars.spacing.xl }
-      : {};
+    const widthHint: React.CSSProperties = {};
 
     const handleClick: React.MouseEventHandler<HTMLTableCellElement> = (e) => {
       if (isSortable && onSort) onSort();

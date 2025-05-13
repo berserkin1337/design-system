@@ -12,23 +12,18 @@ import {
 } from "../../assets/svg/index.ts";
 import { Button } from "../../components/Button/Button.tsx";
 import { Checkbox } from "../../components/Checkbox/Checkbox.tsx";
+import { Dropdown, DropdownItem } from "../../components/Dropdown/Dropdown";
 import { IconButton } from "../../components/IconButton/IconButton.tsx";
 import { Input } from "../../components/Input/Input.tsx";
 import { Link } from "../../components/Link/Link.tsx";
 import { Radio } from "../../components/Radio/Radio";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableHeaderCell,
-  TableRow,
-} from "../../components/Table"; // Assuming TableComponents.tsx is indexed
 import { TagsInput } from "../../components/TagsInput/TagsInput.tsx";
 import { vars } from "../../styles/theme.css.ts";
+import type { ColumnDefinition } from "./InteractiveDataTable.tsx";
+import { InteractiveDataTable } from "./InteractiveDataTable.tsx";
 import "./MainContent.css";
 import { mainContentContainer } from "./MainContent.css.ts";
-import { Dropdown, DropdownItem } from "../../components/Dropdown/Dropdown";
+
 const Header = () => {
   return (
     <>
@@ -69,6 +64,7 @@ const Header = () => {
               icon={<AvatarIcon />}
               aria-label={"Avatar"}
               size="20px"
+              className="AvatarIcon"
             />
           </div>
         </div>
@@ -243,7 +239,7 @@ export const ServiceCard: React.FC = () => {
 };
 const ServiceDetails = () => {
   const [isChecked, setIsChecked] = useState(false);
-  const [selectedVersion, setSelectedVersion] = useState("");
+  const [selectedVersion, setSelectedVersion] = useState("Oracle 21c");
   const [selectedRelease, setSelectedRelease] = useState("");
   const [isVersionOpen, setIsVersionOpen] = useState(false);
 
@@ -280,7 +276,7 @@ const ServiceDetails = () => {
       </div>
       <div className="ServiceDetailsFormContainer">
         <div className="ServiceDetailsForm">
-          <div>Service Name</div>
+          <div className="ServiceDetailsTagContainer-heading">Service Name</div>
           <Input
             placeholder="Enter service name"
             size="regular"
@@ -289,7 +285,9 @@ const ServiceDetails = () => {
           />
         </div>
         <div className="ServiceDetailsFormDescription">
-          <div>Description (optional)</div>
+          <div className="ServiceDetailsTagContainer-heading">
+            Description (optional)
+          </div>
           <Input
             // placeholder="Enter service description"
             textareaProps={{
@@ -370,9 +368,7 @@ const ServiceDetails = () => {
               )}
               panelStyle={{
                 minWidth: "360px",
-                position: "absolute",
-                left: "16px",
-                top: "calc(100% - 125px)",
+                // position: "relative",
               }}
             >
               {oracleVersions.map((version) => (
@@ -423,9 +419,6 @@ const ServiceDetails = () => {
               )}
               panelStyle={{
                 minWidth: "360px",
-                position: "absolute",
-                left: "calc(100% - 420px)",
-                top: "calc(100% - 125px)",
               }}
               onOpenChange={setIsVersionOpen}
             >
@@ -520,35 +513,76 @@ const CloseIcon = () => (
   </svg>
 );
 
-const TrashIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-  >
-    <path d="M7 6H6V12H7V6Z" fill="#0942B3" />
-    <path d="M10 6H9V12H10V6Z" fill="#0942B3" />
-    <path
-      d="M2 3V4H3V14C3 14.2652 3.10536 14.5196 3.29289 14.7071C3.48043 14.8946 3.73478 15 4 15H12C12.2652 15 12.5196 14.8946 12.7071 14.7071C12.8946 14.5196 13 14.2652 13 14V4H14V3H2ZM4 14V4H12V14H4Z"
-      fill="#0942B3"
-    />
-    <path d="M10 1H6V2H10V1Z" fill="#0942B3" />
-  </svg>
-);
 export const AdditionalSettingsSection = () => {
   // For a static display, state isn't strictly needed.
   // If this were interactive, you'd use useState for radio selections, checkbox, etc.
   const [windowPreference, setWindowPreference] = useState("noPreference");
   const [autoMinorVersion, setAutoMinorVersion] = useState(true);
+  const [selectedDuration, setSelectedDuration] = useState("0.5");
+  const [isDurationOpen, setIsDurationOpen] = useState(false);
+
+  const durationOptions = [
+    { value: "0.5", label: "0.5" },
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+  ];
+
+  const handleDurationSelect = (duration: { value: string; label: string }) => {
+    setSelectedDuration(duration.label);
+    setIsDurationOpen(false);
+  };
 
   // Table data would come from props or state in a real app
-  const tableData = [
-    { id: "r1", linkText: "Link", rowTitle: "Row Title" },
-    { id: "r2", linkText: "Link", rowTitle: "Row Title" },
-    { id: "r3", linkText: "Link", rowTitle: "Row Title" },
-    { id: "r4", linkText: "Link", rowTitle: "Row Title" },
+  const initialTableData = [
+    { id: "r1", linkText: "Link1", rowTitle: "Row Title 4" },
+    { id: "r2", linkText: "Link2", rowTitle: "Row Title 3" },
+    { id: "r3", linkText: "Link3", rowTitle: "Row Title 2" },
+    { id: "r4", linkText: "Link4", rowTitle: "Row Title 1" },
+  ];
+  const [tableData, setTableData] = useState(initialTableData);
+
+  const handleDeleteRow = (rowId: string) => {
+    console.log("rowId", rowId);
+    setTableData((prevData) => prevData.filter((row) => row.id !== rowId));
+  };
+
+  const tableColumns: ColumnDefinition[] = [
+    // Select column implicitly handled by InteractiveDataTable if configured
+    {
+      id: "select",
+      header: "",
+      cell: () => null,
+      isSelectionCell: true,
+      headerAlign: "center",
+    }, // Placeholder, InteractiveDataTable handles Checkbox
+    {
+      id: "linkText",
+      header: <>Header</>,
+      cell: (row) => (
+        <Link href="#" colorVariant="primary">
+          {row.linkText}
+        </Link>
+      ),
+      isSortable: true,
+      align: "left",
+    },
+    {
+      id: "rowTitle",
+      header: <>Header</>,
+      cell: (row) => row.rowTitle,
+      isSortable: true,
+      align: "left",
+    },
+    {
+      id: "actions",
+      header: <>Header</>,
+      //@ts-ignore
+      cell: () => null,
+      align: "right",
+      isSortable: true,
+    }, // Actions will be handled by InteractiveDataTable's 'actions' column if defined there
   ];
 
   return (
@@ -610,16 +644,45 @@ export const AdditionalSettingsSection = () => {
           </div>
         </div>
 
-        <div className="FieldGroup" style={{ marginTop: "16px" }}>
-          <Input
-            id="duration"
-            label="Duration"
-            defaultValue="0.5"
-            readOnly
-            // trailingItem={<ChevronDownIcon />}
-            size="regular"
-            className="Input-maintenanceWindow"
-          />
+        <div className="FieldGroup">
+          <Dropdown
+            initialOpen={isDurationOpen}
+            trigger={(props) => (
+              <div style={{ position: "relative", width: "100%" }}>
+                <Input
+                  id="duration"
+                  label="Duration"
+                  value={selectedDuration}
+                  onChange={(e) => setSelectedDuration(e.target.value)}
+                  trailingItem={
+                    <div onClick={props.onClick} style={{ cursor: "pointer" }}>
+                      <ChevronDownIcon />
+                    </div>
+                  }
+                  onClick={props.onClick}
+                  aria-expanded={props["aria-expanded"]}
+                  aria-haspopup={props["aria-haspopup"]}
+                  size="regular"
+                  className="Input-maintenanceWindow"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            )}
+            panelStyle={{
+              minWidth: "360px",
+            }}
+            onOpenChange={setIsDurationOpen}
+          >
+            {durationOptions.map((duration) => (
+              <DropdownItem
+                key={duration.value}
+                value={duration.value}
+                onSelect={() => handleDurationSelect(duration)}
+              >
+                {duration.label}
+              </DropdownItem>
+            ))}
+          </Dropdown>
         </div>
 
         <div className="EnableAutoMinorVersionCheckbox">
@@ -670,78 +733,11 @@ export const AdditionalSettingsSection = () => {
         </div>
 
         <div className="SettingsTableContainer">
-          <Table wrapperClassName="SettingsTable">
-            <TableHeader>
-              <TableRow isHeaderRow>
-                <TableHeaderCell isSelectionCell size="compact" align="left">
-                  <Checkbox
-                    aria-label="Select all table items"
-                    size="medium"
-                    className="SettingsTable-checkbox"
-                  />
-                </TableHeaderCell>
-                <TableHeaderCell
-                  size="compact"
-                  isSortable
-                  align="left"
-                  isSelectionCell={false}
-                >
-                  <span className="SettingsTable-headerText">Header</span>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  size="compact"
-                  isSortable
-                  align="left"
-                  isSelectionCell={false}
-                >
-                  <span className="SettingsTable-headerText">Header</span>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  size="compact"
-                  align="right"
-                  isSortable
-                  isSelectionCell={false}
-                >
-                  <span className="SettingsTable-headerText">Header</span>
-                </TableHeaderCell>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {tableData.map((row) => (
-                <TableRow
-                  key={
-                    row.id
-                  } /* isSelected={...} isSpecActiveOrFocused={...} */
-                >
-                  <TableCell isSelectionCell size="compact">
-                    <Checkbox
-                      aria-label={`Select ${row.linkText}`}
-                      size="medium"
-                      className="SettingsTable-checkbox"
-                    />
-                  </TableCell>
-                  <TableCell size="compact" align="left">
-                    <Link href="#" colorVariant="primary">
-                      {row.linkText}
-                    </Link>
-                  </TableCell>
-                  <TableCell size="compact">{row.rowTitle}</TableCell>
-                  <TableCell size="compact" align="right">
-                    <Button
-                      aria-label={`Delete ${row.rowTitle}`}
-                      iconBefore={<TrashIcon />}
-                      buttonType="tertiary"
-                      size="small"
-                    >
-                      <span className="SettingsTable-deleteButtonText">
-                        Delete
-                      </span>
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <InteractiveDataTable
+            columns={tableColumns}
+            data={tableData}
+            onRowDelete={handleDeleteRow}
+          />
         </div>
       </div>
 

@@ -18,6 +18,7 @@ import {
 } from "./Dropdown.css";
 import { DropdownContext, useDropdown } from "./DropdownContext"; // IMPORT CONTEXT
 
+import { useLayoutEffect, useCallback } from "react";
 // --- DropdownPanel ---
 export interface DropdownPanelProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
@@ -186,18 +187,44 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   const [dynamicPanelStyle, setDynamicPanelStyle] =
     useState<React.CSSProperties>({});
-  useEffect(() => {
-    if (isOpen && triggerRef.current && panelRef.current) {
-      const triggerRect = triggerRef.current.getBoundingClientRect();
-      setDynamicPanelStyle({
-        position: "absolute", // Ensure panel is absolutely positioned for top/left
-        top: triggerRect.bottom + window.scrollY + 2, // +2 for small gap
-        left: triggerRect.left + window.scrollX,
-        width: triggerRect.width, // Or a minWidth from theme, or dynamic
-        ...panelStyle,
-      });
-    }
-  }, [isOpen, panelStyle]); // Rerun if isOpen or panelStyle changes
+  const getOuterSize = (el: HTMLElement) =>
+    el.offsetHeight ?? el.getBoundingClientRect().height;
+  const updatePosition = useCallback(() => {
+    if (!triggerRef.current || !panelRef.current) return;
+
+    const trigger = triggerRef.current;
+    // const parent = panel.offsetParent as HTMLElement | null; // might be <body>
+
+    // Absolute-pos numbers relative to parent
+    const top = trigger.offsetTop + getOuterSize(trigger) + 2; // 2 px gap
+    const left = trigger.offsetLeft;
+    const width = trigger.offsetWidth;
+
+    setDynamicPanelStyle({
+      position: "absolute",
+      top,
+      left,
+      width,
+      ...panelStyle, // allow caller overrides
+    });
+  }, [panelStyle]);
+
+  // replace your existing `useEffect` that sets dynamicPanelStyle
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    // 1️⃣ calculate immediately (in case the page scrolled since click)
+    updatePosition();
+
+    // 2️⃣ recalc on scroll / resize (capture phase catches inner scrollers)
+    window.addEventListener("scroll", updatePosition, true);
+    window.addEventListener("resize", updatePosition);
+
+    return () => {
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [isOpen, updatePosition]);
 
   const triggerElement = trigger({
     onClick: toggleOpen,
