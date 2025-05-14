@@ -1,8 +1,8 @@
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Bracket">
 <g id="bracket--code-angle-programming-file-bracket">
-<path id="Vector" d="M5.23078 11.2311L2 8.00031L5.23078 4.76953" stroke="#0942B3" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_2" d="M10.7693 11.2311L14.0001 8.0003L10.7693 4.76952" stroke="#0942B3" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M5.23078 11.2311L2 8.00031L5.23078 4.76953" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M10.7693 11.2311L14.0001 8.0003L10.7693 4.76952" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 </svg>

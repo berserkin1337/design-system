@@ -446,7 +446,7 @@ textarea::placeholder {
 }
 
 .EngineConfigurationContainer-input {
-  width: 360px;
+  width: 381px;
 }
 
 .ContainerCheckbox {
@@ -576,7 +576,7 @@ h4 {
 /* The Table component itself will bring most of its styles.
    This is just for any specific container margins. */
 .SettingsTableContainer {
-  margin-top: 16px; /* spacing/large */
+  margin-top: 32px; /* spacing/large */
 }
 
 /* --- Alert Message Styles --- */

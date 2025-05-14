@@ -74,7 +74,7 @@ const Header = () => {
           </span>
 
           <div className="HeaderContainer-bottom-right">
-            <div
+            {/* <div
               style={{
                 color: "#0942B3",
                 display: "flex",
@@ -84,7 +84,10 @@ const Header = () => {
             >
               <CodeIcon />
               <span>Code</span>
-            </div>
+            </div> */}
+            <Button buttonType="tertiary" iconBefore={<CodeIcon />}>
+              Code
+            </Button>
             <IconButton icon={<UnionIcon />} aria-label={"Close"} size="16px" />
           </div>
         </div>
@@ -240,7 +243,7 @@ export const ServiceCard: React.FC = () => {
 const ServiceDetails = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedVersion, setSelectedVersion] = useState("Oracle 21c");
-  const [selectedRelease, setSelectedRelease] = useState("");
+  const [selectedRelease, setSelectedRelease] = useState("21.3.0.0.0");
   const [isVersionOpen, setIsVersionOpen] = useState(false);
 
   const handleReleaseSelect = (version: { value: string; label: string }) => {
@@ -333,6 +336,7 @@ const ServiceDetails = () => {
             alignItems: "flex-end",
             gap: "16px",
           }}
+          className="HorizontalFieldGroup"
         >
           <div
             style={{
@@ -737,6 +741,7 @@ export const AdditionalSettingsSection = () => {
             columns={tableColumns}
             data={tableData}
             onRowDelete={handleDeleteRow}
+            className="SettingsTable"
           />
         </div>
       </div>

@@ -198,7 +198,14 @@ export const InteractiveDataTable: React.FC<InteractiveDataTableProps> = ({
                       // buttonType="tertiary" // Use your Button's variant prop
                       buttonType="tertiary" // Use your Button's variant prop
                       size="small"
-                      onClick={() => onRowDelete(dataRow.id)}
+                      onClick={() => {
+                        if (onRowDelete) {
+                          onRowDelete(dataRow.id);
+                          setCurrentData((prevData) =>
+                            prevData.filter((row) => row.id !== dataRow.id)
+                          );
+                        }
+                      }}
                     >
                       <span /* className="SettingsTable-deleteButtonText" */>
                         Delete

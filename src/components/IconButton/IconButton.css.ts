@@ -23,6 +23,9 @@ const baseIconButton = style({
   ":focus-visible": {
     outline: `4px solid #D1E0FF`,
   },
+  ":hover": {
+    cursor: "pointer",
+  },
 });
 
 export const iconButtonRecipe = recipe({
